@@ -9,25 +9,30 @@ module.exports = function(app){
       //userData = req (survey.html)
 
       app.post("/api/friends", function(req,res){
-        var friend = {
+        var userMatch = req.body;
+        var userScore=0;
+        var total=0;
+        var friendMatch = {
           name:"",
           photo:"",
-        };
-        var newUser = req.body;
-        var newScores = newUser.scores;
-        var newName = newUser.name;
-        var newPhoto = newUser.photo;
-        
-        for(var i=0;i<path.length;i++){
-          console.log(path[i].name)
-          var scoreDiff = 0;
+          score:1000
+        }
+        for(var i=0;i<path.length-1;i++){
+          // console.log(path[i].name)
+          var total = 0;
 
           for (var j=0;j<10;j++){
-            scoreDiff += Math.abs(parseInt(newScore[j])-parseInt(path[i].scores[j]));
+           total += Math.abs(parseInt(path[i].scores[j])-parseInt(userMatch.scores[j]));
+           if(total <= friendMatch.score){
+             friendMatch.name=path[i].name,
+             friendMatch.photo=path[i].photo,
+             friendMatch.score=total
+           }
           }
         }
-          path.push(req.body)
-          res.json(true)
+          path.push(friendMatch)
+          res.json(friendMatch)
+          console.log(friendMatch)
 
       }
         )
