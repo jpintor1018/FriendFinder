@@ -10,7 +10,6 @@ module.exports = function(app){
 
       app.post("/api/friends", function(req,res){
         var userMatch = req.body;
-        var userScore=0;
         var total=0;
         var friendMatch = {
           name:"",
